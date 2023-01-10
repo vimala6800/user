@@ -1,0 +1,110 @@
+<body>
+  <main id="main">
+    <div class="pagetitle">
+      <div class="row">
+        <div class="col-sm-6"><h1>Partners</h1></div>
+        <div class="col-sm-6 text-end">
+          <a routerLink="add" class="btn btn-primary btn-sm">Add Partners</a>
+        </div>
+      </div>
+    </div>
+    <section class="section">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <!-- Button trigger modal -->
+
+
+
+
+
+              <div class="main-table">
+                <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                      <div class="dataTables_length" id="example_length">
+                        <label>
+                          Show
+                          <select name="example_length" [(ngModel)]="noOfRows" aria-controls="example" class="form-select form-select-sm"><option value="5">5</option><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries
+                        </label>
+                      </div>
+                    </div><div class="col-sm-12 col-md-6">
+                      <div id="example_filter" class="dataTables_filter">
+                        <!--                    <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example"></label>
+                                            -->
+                        <label>Search:<input type="text" class="form-control form-control-sm" [(ngModel)]="searchText" placeholder="" aria-controls="example"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <table id="example" *ngIf="partners && partners.length>0" class="table mytable-new dataTable no-footer" style="width: 100%;" aria-describedby="example_info">
+
+
+
+                        <thead>
+                          <tr>
+                            <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" (click)="sort('partnerID')" colspan="1" aria-sort="ascending" aria-label="Employee ID: activate to sort column descending" style="width: 280px; text-align:center">Partner ID</th>
+                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" (click)="sort('partnerName')" aria-label="Employee Name: activate to sort column ascending" style="width: 124px;">Partner Name</th>
+                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" (click)="sort('location')" aria-label="Joined Date: activate to sort column ascending" style="width: 120px;">Location</th>
+                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" (click)="sort('country')" aria-label="Joined Date: activate to sort column ascending" style="width: 120px;">Country</th>
+                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" (click)="sort('registeredDate')" aria-label="Joined Date: activate to sort column ascending" style="width: 150px;">Registered Date</th>
+
+                            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 130px;">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let part of partners | filter:searchText |paginate:{itemsPerPage:noOfRows,currentPage:page,totalItems:totalLength}  ">
+                            <a [routerLink]="['partnersdetails', part.partnerID]">
+                              <!--<a routerLink="partners/details"+{{part.partnerID}}>-->
+                            <td>{{part.partnerID}}</td></a>
+
+                            <td>{{part.partnerName}}</td>
+                            <td>{{part.location}}</td>
+                            <td>{{part.country}}</td>
+                            <td>{{part.registeredDate|date:'dd.MM.yyyy'}}</td>
+
+                            <td>
+                              <a [routerLink]="['edit',part.partnerID]" class="me-3"><i class="bi bi-pencil-square" data-toggle="tooltip" title="Edit"></i></a>
+                              <span class="m-auto form-switch"> <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked=""></span>
+                            </td>
+
+                          </tr>
+                        </tbody>
+                      </table>
+                      <p *ngIf="!partners || partners.length<=0">Oops.. No Partners Found!</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example_info" role="status" aria-live="polite">Showing 1 to 10 of 11 entries</div></div>
+                    <div class="col-sm-12 col-md-7">
+                      <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                        <ul class="pagination">
+                          <pagination-controls (pageChange)="page=$event"></pagination-controls>
+                          <!--<li class="paginate_button page-item previous disabled" id="example_previous"><a href="#" aria-controls="example" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+  <li class="paginate_button page-item active"><a href="projectmanagers" aria-controls="example" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="projectmanagers" aria-controls="example" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item next" id="example_next"><a href="projectmanagers" aria-controls="example" data-dt-idx="3" tabindex="0" class="page-link">Next</a></li>-->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="./js/jquery-3.5.1.js"></script>
+  <script src="./js/moment.min.js"></script>
+  <script src="./js/daterangepicker.min.js"></script>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./js/jquery.datatables.min.js"></script>
+  <script src="./js/datatables.bootstrap5.min.js"></script>
+  <script src="js/select2.min.js"></script>
+  <script src="js/app.js"></script>
+
+
+  
+</body>

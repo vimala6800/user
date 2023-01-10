@@ -1,0 +1,162 @@
+
+<body>
+
+  <main id="main">
+    <div class="pagetitle">
+      <div class="row">
+        <div class="col-sm-6"><h1>User-Administration</h1></div>
+        <div class="col-sm-6 text-end">
+          <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addRole">
+            Add Users
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <section class="section">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example_length"><label>Show <select name="example_length" [(ngModel)]="noOfRows" aria-controls="example" class="form-select form-select-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div>
+              <div class="col-sm-12 col-md-12"><div id="example_filter" class="dataTables_filter"><label>Search:<input type="text" [(ngModel)]="searchText" class="form-control form-control-sm" placeholder="" aria-controls="example"></label></div></div>
+
+              <div class="main-table">
+                <table id="example" *ngIf="userList" datatable class="row-border hover" style="width:100%">
+                  <thead>
+                    <tr>
+                      <!--<th>Id</th>-->
+                      <th>Role</th>
+                      <th>User-Name</th>
+                      <th>Email ID</th>
+                      <th>Contact </th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let reg of userList | filter:searchText | paginate:{itemsPerPage:noOfRows,currentPage:page,totalItems:totalLength}">
+                      <!--<td>{{reg.id}}</td>-->
+                      <td>{{reg.roles}}</td>
+                      <td>{{reg.userName}}</td>
+                      <td>{{reg.email}}</td>
+                      <td>{{reg.phoneNumber}}</td>
+                      <td>
+                        <a href="" class="me-3" data-bs-toggle="modal" [routerLink]="['update-users', reg.id]"><i class="bi bi-pencil-square" data-toggle="tooltip" title="Edit"></i></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--<div class="row">
+    <div class="col-sm-12 col-md-5">
+      <div class="dataTables_info" id="example_info" role="status" aria-live="polite" *ngIf="noOfRows<=totalCount">Showing 1 to {{noOfRows}} of {{totalCount}} entries</div>
+      <div class="dataTables_info" id="example_info" role="status" aria-live="polite" *ngIf="totalCount < noOfRows">Showing 1 to {{totalCount}} of {{totalCount}} entries</div>
+    </div><div class="col-sm-12 col-md-7">
+      <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+        <ul class="pagination">
+          <pagination-controls (pageChange)="page=$event"></pagination-controls>
+        </ul>
+      </div>
+    </div>
+  </div>-->
+              <div class="row">
+                <div class="col-sm-12 col-md-5">
+                  <div class="dataTables_info" id="example_info" role="status" aria-live="polite" *ngIf="noOfRows<=totalCount">Showing 1 to {{noOfRows}} of {{totalCount}} entries</div>
+                  <div class="dataTables_info" id="example_info" role="status" aria-live="polite" *ngIf="totalCount < noOfRows">Showing 1 to {{totalCount}} of {{totalCount}} entries</div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                  <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
+                    <ul class="pagination">
+                      <pagination-controls (pageChange)="page=$event"></pagination-controls>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div></div>
+    </section>
+  </main>
+  <!--<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">-->
+  <div class="modal fade" id="addRole" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Users</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <form [formGroup]="myform" (ngSubmit)="onSubmit()">
+                <div class="col-sm-12">
+                  <div class="form-floating">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">UserName</label>
+                    <input type="text" formControlName="userName" name="userName" class="form-control" id="inputName" value="" required>
+
+                    <small *ngIf="myform.get('userName')?.invalid && myform.get('userName')?.touched" class="text-danger">UserName is required and name does not contain blank space</small>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-floating">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                    <input type="text" formControlName="email" name="email" class="form-control" id="staticEmail" value="" required>
+                    <small *ngIf="myform.get('email')?.invalid && myform.get('email')?.touched" class="text-danger">Email is required</small>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-floating">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">PhoneNumber</label>
+                    <input type="text" formControlName="phoneNumber" name="phoneNumber" class="form-control" maxlength="10" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" id="inputPhoneNumber" required>
+                    <small *ngIf="myform.get('phoneNumber')?.invalid && myform.get('phoneNumber')?.touched" class="text-danger">PhoneNumber is required</small>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <label for="inputPassword" class="col-sm-2 col-form-label">Role</label>
+                  <div class="form-floating">
+                    <div class="form-check" *ngFor="let role of roles;let index=index">
+                      <input class="form-check-input" type="checkbox" name="role" [checked]="role.isSelected" (change)="onRoleChange(role.role)" id="{{index}}">
+                      <label class="form-check-label" for="{{index}}">
+                        {{role.role}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" click="success()"  [disabled]="myform.invalid || !isRoleSelected">Add</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divAlert divAlertWarning" style="display: none;">
+    <div class="alert alert-danger errors d-flex align-items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bibi-exclamation-triangle-fill" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+      </svg> <div class="ms-2">Errors</div>
+    </div>
+  </div>
+  <div id="successModal" class="divAlert divAlertSuccess" style="display: none;">
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+      </svg> <div class="ms-2">Added / Updated successfully</div>
+    </div>
+  </div>
+  <footer>
+    <div class="copyright">
+      © 2022 Flatworld Edge All Rights Reserved.
+    </div>
+  </footer>
+  <script src="./js/jquery-3.5.1.js"></script>
+  <script src="./js/moment.min.js"></script>
+  <script src="./js/daterangepicker.min.js"></script>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./js/jquery.dataTables.min.js"></script>
+  <script src="./js/dataTables.bootstrap5.min.js"></script>
+  <script src="js/select2.min.js"></script>
+  <script src="js/app.js"></script>
+

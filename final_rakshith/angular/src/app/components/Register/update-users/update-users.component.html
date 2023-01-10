@@ -1,0 +1,34 @@
+<div class="container my-5">
+  <h1 class="mb-3">Edit Users</h1>
+  <div class="row">
+    <div class="col-6">
+      <form #form="ngForm" [formGroup]="myform" (ngSubmit)="updateuser()">
+        <!--<div class="mb-3">
+          <label for="name" class="form-label">ID</label>
+          <input type="text" class="form-control" id="id" readonly name="id" [(ngModel)]="getUserRequest.id">
+        </div>-->
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" formControlName="userName" class="form-control" id="userName" name="userName" required [(ngModel)]="getUserRequest.userName">
+          <small *ngIf="myform.get('userName')?.invalid && myform.get('userName')?.touched" class="text-danger">UserName is required  and name does not contain blank space</small>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" formControlName="email" class="form-control" id="email" name="email" required [(ngModel)]="getUserRequest.email">
+          <small *ngIf="myform.get('email')?.invalid && myform.get('email')?.touched" class="text-danger">Email is required</small>
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone</label>
+          <input type="text" class="form-control" formControlName="phoneNumber" id="phoneNumber" name="phoneNumber" maxlength="10" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required [(ngModel)]="getUserRequest.phoneNumber">
+          <small *ngIf="myform.get('phoneNumber')?.invalid && myform.get('phoneNumber')?.touched" class="text-danger">PhoneNumber is required</small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="history.back()">Cancel</button>
+          <button type="submit"class="btn btn-primary btnSubmit" data-bs-toggle="modal"[disabled]="myform.invalid" data-bs-target="">
+            Save
+          </button>
+          <button type="button" class="btn btn-danger" (click)="deleteuser(getUserRequest.id)">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,141 @@
+<body>
+<main id="main">
+    <div class="pagetitle">
+        <div class="row">
+            <div class="col-sm-6"><h1>Partner Details</h1></div>
+            <div class="col-sm-6 text-end">
+              <a [routerLink]="['edit',partnerDetails.partnerID]" class="btn btn-primary btn-sm">Edit</a>
+              <!--<button type="button" (click)="deletePartner(partnerDetails.partnerID)" class="btn btn-danger btn-sm">Delete</button>-->
+              <button type="button" class=" btn btn-danger  btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+      <div class="row">
+        <div class="col-md-4 col-sm-4 col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="profile-img">
+                <img src="./images/placeholder.jpg" class="img-fluid" />
+                <!--<input class="form-control" type="file" id="formFile">-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 col-sm-4 col-12">
+          <div class="card">
+            <div class="card-body">
+              <form class="needs-validation" novalidate="">
+                <div class="row mt-2">
+                  <div class="col-sm-12 col-xl-6">
+                    <div class="form-floating">
+
+                      <input id="partnerName" name="name" type="text" class="form-control" placeholder="Partner Name" readonly [(ngModel)]="partnerDetails.partnerName">
+
+                      <label for="partnerName" class="form-label">Partner Name</label>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-xl-6">
+                    <div class="form-floating">
+
+                      <input id="partnerLocation" name="location" type="text" class="form-control" placeholder="Location" readonly [(ngModel)]="partnerDetails.location">
+
+                      <label for="partnerLocation" class="form-label">Location</label>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-xl-6">
+                    <div class="form-floating">
+
+                      <input id="partnerCountry" name="country" type="text" class="form-control" placeholder="Country" readonly [(ngModel)]="partnerDetails.countryID">
+
+                      <label for="partnerCountry" class="form-label">Country</label>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-xl-6">
+                    <div class="form-floating">
+
+                      <input id="regDate" name="regdate" type="text" class="form-control" placeholder="Registered Date" readonly [(ngModel)]="partnerDetails.registeredDate">
+
+                      <label for="partnerCountry" class="form-label">Registered Date</label>
+
+                    </div>
+                  </div>
+                  <!--<div class="col-sm-12 col-xl-6">
+                    <div class="form-floating">
+
+                      <input id="spoc" name="spoc" type="text" class="form-control" placeholder="SPOC" readonly [(ngModel)]="partnerDetails.spocUserID">
+
+                      <label for="spoc" class="form-label">SPOC</label>
+
+                    </div>
+                  </div>-->
+                  <div class="col-sm-12 col-xl-6">
+                    <div class="form-floating">
+
+                      <input id="status" name="status" type="text" class="form-control" placeholder="Status" readonly *ngIf="partnerDetails.partnerStatus" value="Active">
+                      <input id="status" name="status" type="text" class="form-control" placeholder="Status" readonly *ngIf="!partnerDetails.partnerStatus" value="Inactive">
+
+                      <label for="status" class="form-label">Status</label>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-xl-6">
+                    <div class="form-floating">
+
+                      <input id="skills" name="skills" type="text" class="form-control" placeholder="Skills" readonly >
+
+                      <label for="skills" class="form-label">Skills</label>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-xl-6">
+                    <div class="form-floating">
+
+                      <input id="address" name="address" type="text" class="form-control" placeholder="Address" readonly [(ngModel)]="partnerDetails.address1">
+
+                      <label for="address" class="form-label">Address</label>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-xl-6">
+                    <div class="form-floating">
+
+                      <input id="billingaddress" name="billingaddress" type="text" class="form-control" placeholder="Billing Address" readonly [(ngModel)]="partnerDetails.billingAddress1">
+
+                      <label for="billingaddress" class="form-label">Billing Address</label>
+
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div id="deleteModal"  class="modal fade confirmation" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body text-center">
+                <i class="bi bi-exclamation-triangle modal-dangerIco"></i>
+                <h3>Are you sure want to delete?</h3>
+                <div class="mt-4 mb-4">
+                  <a href="#" class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+                  <button type="button" (click)="deletePartner(partnerDetails.partnerID)" class="btn btn-danger btnDelete" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="successModal" class="divAlert divAlertDeleted" style="display: none;">
+          <div class="alert alert-success d-flex align-items-center" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+            </svg> <div class="ms-2">Deleted successfully</div>
+          </div>
+        </div>
+      </div>
+    </section>
+</main>
+</body>

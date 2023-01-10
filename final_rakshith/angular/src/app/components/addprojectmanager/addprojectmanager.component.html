@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Document</title>
+
+</head>
+
+
+<body>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
+  <link src="../../../../filter_multi_select.css" rel="stylesheet" />
+
+  <script src="../../../../filter-multi-select.js"></script>
+
+
+
+
+
+  <main id="main">
+
+    <div class="pagetitle"><h1>Add Project Manager</h1></div>
+
+    <section class="section">
+
+      <div class="row">
+
+        <div class="col-md-4 col-sm-4 col-12">
+
+          <div class="card">
+
+            <div class="card-body">
+
+              <div class="profile-img">
+
+                <img [src]="url" class="img-fluid">
+
+                <input (change)="onSelectFile($event)" class="form-control" name="photo" type="file" id="formFile" [(ngModel)]="addProjectManagerRequest.pmPhoto">
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-8 col-sm-4 col-12">
+
+          <div class="card">
+
+            <div class="card-body">
+
+              <form class="needs-validation" #form="ngForm" [formGroup]="myform" (ngSubmit)="addEmployee()">
+
+                <div class="row mt-2">
+
+
+                  <div class="col-sm-12 col-xl-6">
+
+                    <div class="form-floating">
+
+
+                      <input formControlName="Id" id="intEmployeeID" name="Id" type="text" maxlength="3"
+                             onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                             class="form-control" placeholder="Employee ID" ngModel required [(ngModel)]="addProjectManagerRequest.employeeID">
+
+                      <label for="intEmployeeID" class="form-label">Employee ID</label>
+                      <small *ngIf="myform.get('Id')?.invalid && myform.get('Id')?.touched" class="text-danger">EmployeeID is required</small>
+                    </div>
+
+                  </div>
+
+                  <div class="col-sm-12 col-xl-6">
+
+                    <div class="form-floating">
+
+                      <input formControlName="name" id="intEmployeeName" name="name" type="text" class="form-control" placeholder="Employee Name" required [(ngModel)]="addProjectManagerRequest.projectManagerName">
+
+                      <label for="intEmployeeName" class="form-label">Employee Name</label>
+                      <small *ngIf="myform.get('name')?.invalid && myform.get('name')?.touched" class="text-danger">EmployeeName is required</small>
+                    </div>
+
+                  </div>
+                  <div class="col-sm-12 col-xl-6">
+
+                    <div class="form-floating">
+
+                      <input formControlName="name" id="intEmployeeName" name="name" type="text" class="form-control" placeholder="Employee Name" [(ngModel)]="addUserRequest.userName">
+
+                      <label for="intEmployeeName" class="form-label">Employee Name</label>
+                      <small *ngIf="myform.get('name')?.invalid && myform.get('name')?.touched" class="text-danger">EmployeeName is required</small>
+                    </div>
+
+                  </div>
+
+                  <div class="col-sm-12 col-xl-6">
+
+                    <div class="form-floating">
+
+                      <input formControlName="joindate" id="intJoiningDate" name="joindate" type="date" class="form-control date ng-pristine ng-invalid ng-touched" placeholder="Joined Date" required [(ngModel)]="addProjectManagerRequest.joiningDate">
+
+                      <label for="intJoiningDate" class="form-label">Joined Date</label>
+                      <small *ngIf="myform.get('joindate')?.invalid && myform.get('joindate')?.touched" class="text-danger">Date is required</small>
+
+                    </div>
+
+                  </div>
+
+
+
+
+                  <div class="col-sm-12 col-xl-6">
+
+                    <div class="form-floating">
+
+                      <select required name="skill1" formControlName="skill1" class="form-select" [(ngModel)]="addProjectManagerRequest.skillID">
+                        <option value="undefined">Please select a Skill</option>
+                        <option *ngFor="let skill2 of PMSkills" name="skill1" [ngValue]="skill2.skillID">{{skill2.skillName}}</option>
+                      </select>
+
+
+
+
+                      <label for="intSkills" class="form-label">Skills</label>
+                      <small *ngIf="myform.get('skill1')?.invalid && myform.get('skill1')?.touched" class="text-danger">Skill is required</small>
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-sm-12 col-xl-6" aria-required="true">
+
+                    <div class="form-floating" aria-required="true">
+
+                      <input formControlName="pmemail" id="intEmailID" name="pmemail" type="email" class="form-control" placeholder="Email ID" required [(ngModel)]="addProjectManagerRequest.pmEmailID">
+
+                      <label for="intEmailID" class="form-label">Email ID</label>
+                      <small *ngIf="myform.get('pmemail')?.invalid && myform.get('pmemail')?.touched" class="text-danger">EmailID is required</small>
+                    </div>
+
+                  </div>
+
+                  <div class="col-sm-12 col-xl-6" aria-required="true">
+
+                    <div class="form-floating" aria-required="true">
+
+                      <input formControlName="email" id="intEmailID" name="email" type="email" class="form-control" placeholder="Email ID" required [(ngModel)]="addUserRequest.email">
+
+                      <label for="intEmailID" class="form-label">Email ID</label>
+                      <small *ngIf="myform.get('email')?.invalid && myform.get('email')?.touched" class="text-danger">EmilID is required</small>
+                    </div>
+
+                  </div>
+
+                  <div class="col-sm-12 col-xl-6">
+
+                    <div class="form-floating">
+
+                      <input formControlName="mobile" maxlength="10" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" id="intContactNumber" name="mobile" type="text" class="form-control" placeholder="Contact Number" required [(ngModel)]="addProjectManagerRequest.pmPhoneNumber">
+
+                      <label for="intContactNumber" class="form-label">Contact Number</label>
+                      <small *ngIf="myform.get('mobile')?.invalid && myform.get('mobile')?.touched" class="text-danger">ContactNumber is required</small>
+                    </div>
+
+                  </div>
+                  <div class="col-sm-12 col-xl-6">
+
+                    <div class="form-floating">
+                      <select id="intStatus" formControlName="sta" name="sta" class="form-control" [(ngModel)]="addProjectManagerRequest.pmStatus">
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
+                        <option value="2">Block</option>
+                      </select>
+
+
+
+                      <label for="intStatus" class="form-label">Status</label>
+                      <small *ngIf="myform.get('sta')?.invalid && myform.get('sta')?.touched" class="text-danger">Status is required</small>
+
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+                <div class="col-12 text-end mt-1">
+
+                  <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+
+                  <button class="btn btn-primary" (click)="addEmployee()" [disabled]="myform.invalid" type="button">Submit</button>
+
+                </div>
+                <div class="modal"
+                     tabindex="-1"
+                     role="dialog"
+                     [ngStyle]="{'display':displayStyle}" height="40px">
+                  <div role="document">
+                    <div width="20px">
+                      <div class="modal-header">
+                        <h4 class="modal-title">succes</h4>
+                      </div>
+                      <div height="20px" width="20px" style="background-color:darkgreen">
+                        <p> ProjectManagerAdded Successfully</p>
+
+                      </div>
+                      <div >
+                        <button type="button" class="btn btn-danger"
+                                (click)="closePopup()">
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
+
+
+
